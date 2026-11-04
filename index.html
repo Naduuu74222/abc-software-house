@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ABC Software House network design, implementation and security management project documentation.">
+<title>ABC Software House | Network Administration Project</title>
+<style>
+:root{--navy:#10243a;--blue:#1769aa;--cyan:#19a7b8;--ink:#243447;--muted:#64748b;--paper:#fff;--bg:#f2f6fa;--line:#dce5ee;--soft:#eaf4fb;--gold:#f4b942}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 Arial,Helvetica,sans-serif}
+.hero{background:linear-gradient(125deg,#10243a 0%,#145b8f 58%,#19a7b8 100%);color:white;padding:64px 24px 56px}
+.hero-inner{max-width:1180px;margin:auto}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:.78rem;font-weight:700;color:#bdeaf0}
+h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.12;margin:14px 0 16px;max-width:850px}
+.hero p{max-width:760px;color:#e3f3fb;font-size:1.08rem}.hero-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.pill{border:1px solid #ffffff55;border-radius:30px;padding:7px 13px;font-size:.86rem;background:#ffffff12}
+.layout{max-width:1360px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:start}
+nav{position:sticky;top:18px;align-self:start;background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:15px;max-height:calc(100vh - 36px);overflow-y:auto;overscroll-behavior:contain;box-shadow:0 8px 24px #17324d0b}
+nav h2{font-size:1rem;margin:0 0 12px;color:var(--navy)}nav a{display:block;text-decoration:none;color:#536579;padding:6px 8px;border-radius:7px;font-size:.82rem;line-height:1.35}nav a:hover{background:var(--soft);color:var(--blue)}
+main{min-width:0}.card{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:clamp(20px,3vw,34px);margin-bottom:22px;box-shadow:0 8px 24px #17324d08}
+h2.section{font-size:1.55rem;line-height:1.3;color:var(--navy);margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid var(--soft)}
+h3{color:#175b88;margin:24px 0 8px;font-size:1.12rem}p{margin:9px 0 14px}ul,ol{padding-left:23px}li{margin:5px 0}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:.93rem;display:table}th{background:#eaf3fa;color:#173c5a;text-align:left}td,th{border:1px solid var(--line);padding:10px 12px;vertical-align:top}tr:nth-child(even) td{background:#fbfdff}
+.callout{border-left:4px solid var(--cyan);background:#eef9fa;padding:13px 16px;border-radius:0 9px 9px 0;margin:16px 0}
+.figure{border:2px dashed #8aaec5;border-radius:12px;background:linear-gradient(135deg,#f7fbfe,#edf5fa);padding:22px;text-align:center;margin:18px 0;color:#31556e}
+.figure strong{display:block;font-size:1rem;color:#174f79;margin-bottom:5px}.figure span{display:block;font-size:.88rem;color:#647f92}.figure .tag{display:inline-block;margin-top:10px;background:#dceef8;border-radius:20px;padding:4px 10px;font-size:.75rem;color:#1a5e88;font-weight:700}
+pre{overflow:auto;background:#122538;color:#e5f3ff;padding:16px;border-radius:10px;font: .88rem/1.6 Consolas,monospace}code{font-family:Consolas,monospace}
+.meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.meta-item{background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:9px}.meta-item b{display:block;color:#456077;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+footer{text-align:center;color:#718096;padding:20px 15px 45px;font-size:.88rem}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{position:relative;top:auto;max-height:none}nav .navlinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}}
+@media(max-width:560px){.hero{padding:42px 20px}.layout{padding:0 12px;margin:16px auto}.card{padding:19px}table{font-size:.82rem}td,th{padding:8px}.meta-grid{grid-template-columns:1fr}nav .navlinks{grid-template-columns:1fr}}
+@media print{body{background:white}.hero{padding:30px;background:#174f79!important;print-color-adjust:exact}.layout{display:block;margin:0;padding:0}nav{display:none}.card{box-shadow:none;break-inside:avoid;border:0;border-bottom:1px solid #ddd;border-radius:0}.figure{min-height:100px}a{color:inherit}footer{padding:10px}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="hero-inner">
+  <div class="eyebrow">System and Network Administration • Semester Project</div>
+  <h1>Network Design, Implementation &amp; Security Management</h1>
+  <p>A simulated enterprise network for ABC Software House, designed with departmental VLANs, centralized services, inter-VLAN routing, access controls and switch port security.</p>
+  <div class="hero-meta"><span class="pill">Cisco Packet Tracer</span><span class="pill">5 Departments</span><span class="pill">10 PCs + 1 Server</span><span class="pill">Centralized switch</span><span class="pill">Final Documentation</span></div>
+ </div>
+</header>
+<div class="layout">
+<nav aria-label="Project contents">
+ <h2>Project contents</h2>
+ <div class="navlinks">
+ <a href="#cover">Cover information</a><a href="#summary">1. Executive summary</a><a href="#intro">2. Introduction</a><a href="#company">3. Company profile</a><a href="#Structure">3.1 Organizational Structure</a><a href="#problem">4. Problem statement</a><a href="#objectives">5. Objectives</a><a href="#requirements">6. Requirements</a><a href="#architecture">7. Architecture</a><a href="#hardware">8. Hardware/software</a><a href="#vlans">9. VLAN design</a><a href="#ip">10. IP addressing</a><a href="#switch">11. Switch configuration</a><a href="#router">12. Router configuration</a><a href="#dhcp">13. DHCP</a><a href="#server">14. Server</a><a href="#testing">15. Connectivity testing</a><a href="#security">16. Security</a><a href="#acl">17. ACLs</a><a href="#portsecurity">18. Port security</a><a href="#backup">19. Backup &amp; recovery</a><a href="#maintenance">20. Maintenance</a><a href="#risk">21. Risk management</a><a href="#limitations">22. Limitations</a><a href="#conclusion">23. Conclusion</a>
+ </div>
+</nav>
+<main>
+<section class="card" id="cover">
+ <h2 class="section">Project submission details</h2>
+ <div class="meta-grid">
+  <div class="meta-item"><b>Submitted by</b>Arif Hussain | Nadeem Hassan | Noor ul Saba | Tehseen | Nusrat</div><div
+  <div class="meta-item"><b>Department / University</b>BSIT 5TH (A)</div><div class="meta-item"><b>Course</b>System and Network Administration</div>
+  <div class="meta-item"><b>Submitted to</b>SIR ASIF HUSSAIN</div><div class="meta-item"><b>Submission date</b>[Date]</div>
+ </div>
+</section>
+<section class="card" id="summary"><h2 class="section">1. Executive Summary</h2>
+<p>This project presents the design, implementation, and security management of a small organizational network for a fictional software development company named ABC Software House.</p>
+<P>The purpose of this project is to develop a secure, organized, and manageable network infrastructure that supports communication between different departments while maintaining appropriate network separation and security.</P>
+<p>The network supports five departments: Human Resources, Finance, Development, Management, and IT. Each department is assigned a separate Virtual Local Area Network (VLAN), and a dedicated server is placed in a separate server VLAN.</p>
+<p>Cisco Packet Tracer is used to simulate the infrastructure. The implementation includes VLANs, IPv4 addressing, DHCP, router-on-a-stick inter-VLAN routing, a centralized HTTP service, extended Access Control Lists (ACLs), switch port security, connectivity verification, and configuration backups.</p>
+</section>
+<section class="card" id="intro"><h2 class="section">2. Introduction</h2>
+<p>Computer networks are essential for communication, information sharing, and daily business operations. Software companies depend on reliable connectivity for software development, financial operations, employee management, and technical support.</p>
+<p>Connecting every computer to one unrestricted network can make administration difficult and increase security risks. This project addresses those challenges by proposing a segmented and centrally managed network for ABC Software House.</p></section>
+<section class="card" id="company"><h2 class="section">3. Company Profile</h2>
+<p><b>Company:</b> ABC Software House<br><b>Business type:</b> Software development and IT services<br><b>Organization size:</b> Small organization</p>
+<table><thead><tr><th>Department</th><th>Computers</th><th>Main responsibility</th></tr></thead><tbody>
+<tr><td>Human Resources (HR)</td><td>1</td><td>Employee records and recruitment</td></tr><tr><td>Finance</td><td>1</td><td>Financial records and expenses</td></tr><tr><td>Development</td><td>4</td><td>Software development and testing</td></tr><tr><td>Management</td><td>2</td><td>Business supervision and decisions</td></tr><tr><td>IT</td><td>2</td><td>Network and technical support</td></tr><tr><th>Total</th><th>10</th><th>Plus one centralized server</th></tr></tbody></table>
+<p>Each department has distinct operational responsibilities and requires reliable connectivity with appropriate network separation.</p></section>
+<section class="card" id="Structure"><h2 class="section">3.1 Organizational Structure</h2><p>The company consists of five departments, each having different responsibilities.</p><ul><li>Human Resources: Manages employee records, recruitment information, and staff-related activities.</li><li>Finance: Handles financial records, expenses, and organizational transactions.</li><li>Development: Develops, tests, and maintains software applications.</li><li>Management: Supervises business operations and makes organizational decisions.</li><li>IT: Manages network infrastructure, technical support, and system maintenance.</li><li>Each department requires reliable network connectivity while maintaining appropriate separation from other departments.</li></ul></section>
+<section class="card" id="problem"><h2 class="section">4. Problem Statement</h2><p>ABC Software House requires an organized network that supports departmental communication while reducing unnecessary access and simplifying administration.</p><ul><li>Unnecessary Access between departments.</li><li>Manual IP configuration and possible address conflicts.</li><li>Difficulty managing network devices and services.</li><li>Unauthorized devices connecting to switch ports.</li><li>Potential loss of configurations without backups.</li></ul></section>
+<section class="card" id="objectives"><h2 class="section">5. Project Objectives</h2><ol><li>Design a realistic small-business network.</li><li>Separate departments using VLAN technology.</li><li>Assign a dedicated IP subnet to each VLAN.</li><li>Provide automatic IP configuration through DHCP.</li><li>Enable inter-VLAN routing through a router.</li><li>Deploy a centralized web server.</li><li>Apply network traffic filtering using ACLs.</li><li>Protect switch access ports using port security.</li><li>Verify connectivity and save device configurations.</li></ol></section>
+<section class="card" id="requirements"><h2 class="section">6. Organizational Network Requirements</h2><table><thead><tr><th>Requirement</th><th>Proposed solution</th></tr></thead><tbody><tr><td>Department separation</td><td>VLANs</td></tr><tr><td>Automatic IP assignment</td><td>DHCP</td></tr><tr><td>Communication between VLANs</td><td>Router-on-a-Stick</td></tr><tr><td>Centralized web service</td><td>Dedicated server</td></tr><tr><td>Traffic filtering</td><td>Extended ACLs</td></tr><tr><td>Switch port protection</td><td>Port security</td></tr><tr><td>Configuration protection</td><td>Router and switch backups</td></tr></tbody></table></section>
+<section class="card" id="architecture"><h2 class="section">7. Proposed Network Architecture</h2><p>The design uses one Cisco 2911 router, one Cisco 2960-24TT switch, ten departmental computers, and one server. The router connects to the switch using a trunk link. The switch connects the end devices using access ports.</p><p>The router uses logical subinterfaces to provide default gateways for the VLANs. This arrangement is known as Router-on-a-Stick.</p>
+<div class="figure"><strong><img src="topology.png" width="700"></strong><span>Complete Cisco Packet Tracer network topology</span><span class="tag">Figure 1</span></div>
+<p><b>Communication flow:</b> A PC sends traffic to the switch. For traffic destined for another VLAN, the switch forwards it over the trunk to the router. The router processes the packet according to its routing table and applicable ACL, then forwards permitted traffic toward its destination.</p></section>
+<section class="card" id="hardware"><h2 class="section">8. Hardware and Software Requirements</h2>
+<table><thead><tr><th>Component</th><th>Quantity / model</th><th>Purpose</th></tr></thead><tbody><tr><td>Router</td><td>Cisco 2911 × 1</td><td>Inter-VLAN routing</td></tr><tr><td>Switch</td><td>Cisco 2960-24TT × 1</td><td>Device connectivity and VLANs</td></tr><tr><td>PCs</td><td>10</td><td>Departmental operations</td></tr><tr><td>Server</td><td>1</td><td>Centralized HTTP service</td></tr><tr><td>Ethernet cables</td><td>As required</td><td>Network connections</td></tr></tbody></table>
+<p><b>Software:</b> Cisco Packet Tracer, Cisco IOS command-line interface, a PC web browser, and a text editor for configuration backups.</p></section>
+<section class="card" id="vlans"><h2 class="section">9. VLAN Design and Department Segmentation</h2><p>A Virtual Local Area Network (VLAN) logically separates devices into different broadcast domains, even when they use the same physical switch.</p>
+<table><thead><tr><th>VLAN ID</th><th>VLAN name</th><th>Department / use</th></tr></thead><tbody><tr><td>10</td><td>HR</td><td>Human Resources</td></tr><tr><td>20</td><td>FINANCE</td><td>Finance</td></tr><tr><td>30</td><td>DEVELOPMENT</td><td>Development</td></tr><tr><td>40</td><td>MANAGEMENT</td><td>Management</td></tr><tr><td>50</td><td>IT</td><td>Information Technology</td></tr><tr><td>60</td><td>SERVERS</td><td>Centralized server</td></tr></tbody></table>
+<div class="figure"><strong><img src="2 - Copy.PNG" width="700"></strong><span>Switch VLAN table — show vlan brief</span><span class="tag">Figure 2</span></div>
+<p>VLANs improve organization, reduce unnecessary broadcast traffic between departments, and provide a basis for applying different network policies. A VLAN is not the same as a single switch port; multiple ports and computers can belong to one VLAN.</p></section>
+<section class="card" id="ip"><h2 class="section">10. IP Addressing Scheme</h2><p>Each VLAN uses a separate private IPv4 subnet with a /24 prefix (subnet mask 255.255.255.0).</p>
+<table><thead><tr><th>Department</th><th>VLAN</th><th>Network</th><th>Default gateway</th></tr></thead><tbody><tr><td>HR</td><td>10</td><td>192.168.10.0/24</td><td>192.168.10.1</td></tr><tr><td>Finance</td><td>20</td><td>192.168.20.0/24</td><td>192.168.20.1</td></tr><tr><td>Development</td><td>30</td><td>192.168.30.0/24</td><td>192.168.30.1</td></tr><tr><td>Management</td><td>40</td><td>192.168.40.0/24</td><td>192.168.40.1</td></tr><tr><td>IT</td><td>50</td><td>192.168.50.0/24</td><td>192.168.50.1</td></tr><tr><td>Servers</td><td>60</td><td>192.168.60.0/24</td><td>192.168.60.1</td></tr></tbody></table>
+<h3>Server static addressing</h3><table><tbody><tr><th>IP address</th><td>192.168.60.10</td></tr><tr><th>Subnet mask</th><td>255.255.255.0</td></tr><tr><th>Default gateway</th><td>192.168.60.1</td></tr><tr><th>Configured DNS</th><td>8.8.8.8</td></tr></tbody></table>
+<div class="figure"><strong><img src="server static.PNG" width="700"></strong><span>Server static IPv4 configuration</span><span class="tag">Figure 3</span></div>
+<p>The server uses a static address so clients and administrators can reach it at a consistent IP address. Configuring a public DNS address does not, by itself, establish Internet connectivity.</p></section>
+<section class="card" id="switch"><h2 class="section">11. Switch Configuration</h2><p>The Cisco 2960 switch connects departmental PCs and the server. Access ports are assigned to the appropriate VLAN.</p>
+<table><thead><tr><th>Switch port</th><th>Connected device</th><th>VLAN</th></tr></thead><tbody><tr><td>Fa0/1</td><td>HR-PC1</td><td>10</td></tr><tr><td>Fa0/2</td><td>FIN-PC1</td><td>20</td></tr><tr><td>Fa0/3–Fa0/6</td><td>DEV-PC1–DEV-PC4</td><td>30</td></tr><tr><td>Fa0/7–Fa0/8</td><td>MGT-PC1–MGT-PC2</td><td>40</td></tr><tr><td>Fa0/9–Fa0/10</td><td>IT-PC1–IT-PC2</td><td>50</td></tr><tr><td>Fa0/11</td><td>Server1</td><td>60</td></tr><tr><td>Gi0/1</td><td>Router G0/0</td><td>Trunk</td></tr></tbody></table>
+<h3>VLAN creation example</h3><pre>enable
+configure terminal
+vlan 10
+ name HR
+exit
+vlan 20
+ name FINANCE
+exit
+vlan 30
+ name DEVELOPMENT
+exit
+vlan 40
+ name MANAGEMENT
+exit
+vlan 50
+ name IT
+exit
+vlan 60
+ name SERVERS
+exit</pre>
+<h3>Access port example</h3><pre>interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 10
+exit</pre>
+<h3>Trunk configuration</h3><pre>interface gigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60
+exit</pre>
+<div class="figure"><strong><img src="switch vlans 4.PNG" width="700"></strong><span>Switch trunk configuration and allowed VLANs</span><span class="tag">Figure 4</span></div>
+<p>A trunk carries traffic for multiple VLANs across one physical switch-to-router connection using VLAN tags.</p></section>
+<section class="card" id="router"><h2 class="section">12. Router-on-a-Stick Configuration</h2><p>Router-on-a-Stick allows one physical router interface to route traffic for multiple VLANs using logical subinterfaces. The physical interface used is GigabitEthernet0/0.</p>
+<h3>Example subinterface for HR</h3><pre>interface gigabitEthernet 0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0</pre>
+<table><thead><tr><th>Subinterface</th><th>VLAN</th><th>Gateway</th></tr></thead><tbody><tr><td>G0/0.10</td><td>10</td><td>192.168.10.1</td></tr><tr><td>G0/0.20</td><td>20</td><td>192.168.20.1</td></tr><tr><td>G0/0.30</td><td>30</td><td>192.168.30.1</td></tr><tr><td>G0/0.40</td><td>40</td><td>192.168.40.1</td></tr><tr><td>G0/0.50</td><td>50</td><td>192.168.50.1</td></tr><tr><td>G0/0.60</td><td>60</td><td>192.168.60.1</td></tr></tbody></table>
+<p>The physical interface was enabled with <code>no shutdown</code>. Each subinterface uses <code>encapsulation dot1Q</code> to identify its VLAN.</p>
+<div class="figure"><strong><img src="router on stick 5.PNG" width="700"></strong><span>Router subinterfaces — show ip interface brief</span><span class="tag">Figure 5</span></div>
+<p>The configured subinterfaces were observed in an operational up/up state.</p></section>
+<section class="card" id="dhcp"><h2 class="section">13. DHCP Configuration</h2><p>Dynamic Host Configuration Protocol (DHCP) automatically provides IP configuration to client computers. The router provides a separate DHCP pool for each departmental subnet.</p>
+<p>Addresses from .1 through .20 are excluded from automatic allocation, reserving them for gateways, servers, and infrastructure. DHCP clients begin at .21.</p>
+<h3>HR DHCP example</h3><pre>ip dhcp excluded-address 192.168.10.1 192.168.10.20
+
+ip dhcp pool HR_POOL
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 8.8.8.8</pre>
+<p>Equivalent pools were configured for Finance, Development, Management, IT, and the server subnet as planned. The server itself uses its static address.</p>
+<table><thead><tr><th>Department</th><th>Observed DHCP address(es)</th></tr></thead><tbody><tr><td>HR</td><td>192.168.10.21</td></tr><tr><td>Finance</td><td>192.168.20.21</td></tr><tr><td>Development</td><td>192.168.30.21–192.168.30.24</td></tr><tr><td>Management</td><td>192.168.40.21–192.168.40.22</td></tr><tr><td>IT</td><td>192.168.50.21–192.168.50.22</td></tr></tbody></table>
+<div class="figure"><strong><img src="dhcp pool 6.PNG" width="700"></strong><span>DHCP bindings — show ip dhcp binding</span><span class="tag">Figure 6</span></div></section>
+<section class="card" id="server"><h2 class="section">14. Centralized Server Configuration</h2><p>A dedicated server is connected to switch port Fa0/11 in VLAN 60. It uses the static IP address 192.168.60.10 and provides an HTTP service for departmental clients.</p>
+<h3>HTTP service</h3><p>The HTTP service was enabled through the server's Services panel in Cisco Packet Tracer.</p>
+<div class="figure"><strong><img src="http service.PNG" width="700"></strong><span>Server HTTP service enabled</span><span class="tag">Figure 7</span></div>
+<h3>Website accessibility</h3><p>From a departmental PC, the server was accessed in the web browser using:</p><pre>http://192.168.60.10</pre>
+<div class="figure"><strong><img src="website access.PNG" width="700"></strong><span>Server website successfully opened from a departmental PC</span><span class="tag">Figure 8</span></div>
+<p>This confirms access to the simulated HTTP service from the tested client. It does not imply that the server is publicly accessible over the Internet.</p></section>
+<section class="card" id="testing"><h2 class="section">15. Network Connectivity Testing</h2><p>Connectivity tests were performed to check communication between a client, its default gateway, and the centralized server.</p>
+<h3>HR gateway test</h3><pre>ping 192.168.10.1</pre><p><b>Observed result:</b> 4 packets sent, 4 received, 0% packet loss.</p>
+<div class="figure"><strong><img src="ping.PNG" width="700"></strong><span>HR-PC1 successful ping to its default gateway</span><span class="tag">Figure 9</span></div>
+<h3>HR-to-server test</h3><pre>ping 192.168.60.10</pre><p>The initial test showed a first-request timeout followed by successful replies. A first timeout can occur while ARP resolves the destination MAC address. The subsequent replies and successful browser test provided evidence of server reachability.</p>
+<div class="figure"><strong><img src="ping server.PNG" width="700"></strong><span>HR-PC1 ping to centralized server</span><span class="tag">Figure 10</span></div></section>
+<section class="card" id="security"><h2 class="section">16. Network Security Implementation</h2><p>Security mechanisms were introduced to reduce unnecessary network access and protect switch connections. The implemented controls include VLAN segmentation, extended ACLs, and switch port security. Configuration backups support recovery after accidental changes or device replacement.</p></section>
+<section class="card" id="acl"><h2 class="section">17. Access Control Lists (ACLs)</h2><p>An Access Control List is a sequence of rules that permits or denies traffic based on conditions such as source and destination addresses, protocol, and port number. Extended ACLs were created for the five departmental VLANs.</p>
+<table><thead><tr><th>ACL name</th><th>Applied inbound interface</th></tr></thead><tbody><tr><td>HR_POLICY</td><td>G0/0.10</td></tr><tr><td>FINANCE_POLICY</td><td>G0/0.20</td></tr><tr><td>DEVELOPMENT_POLICY</td><td>G0/0.30</td></tr><tr><td>MANAGEMENT_POLICY</td><td>G0/0.40</td></tr><tr><td>IT_POLICY</td><td>G0/0.50</td></tr></tbody></table>
+<p>The configured rule pattern permits ICMP to the department's own gateway, TCP access to the server's HTTP port 80, and ICMP to the server; denies traffic from that department to the specified private address block 192.168.0.0/16; and permits remaining traffic.</p>
+<h3>HR ACL example</h3><pre>ip access-list extended HR_POLICY
+ permit icmp 192.168.10.0 0.0.0.255 host 192.168.10.1
+ permit tcp 192.168.10.0 0.0.0.255 host 192.168.60.10 eq 80
+ permit icmp 192.168.10.0 0.0.0.255 host 192.168.60.10
+ deny ip 192.168.10.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip 192.168.10.0 0.0.0.255 any</pre>
+<div class="figure"><strong><img src="acl.PNG" width="700"></strong><span>Configured extended ACL rules</span><span class="tag">Figure 11</span></div>
+<div class="callout"><b>Security scope:</b> These ACLs provide network-layer traffic filtering, not file-level server permissions or user authentication. The final permit rule also means these policies should not be described as complete departmental isolation. More restrictive production policies would need to be designed and tested against specific business requirements.</div></section>
+<section class="card" id="portsecurity"><h2 class="section">18. Switch Port Security</h2><p>Port security helps restrict which MAC addresses can use a switch access port. It was enabled on FastEthernet0/1 through FastEthernet0/11.</p>
+<h3>Configuration</h3><pre>interface range fastEthernet 0/1 - 11
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict</pre>
+<ul><li><b>Maximum 1:</b> permits one secure MAC address per protected port.</li><li><b>Sticky MAC:</b> dynamically learns a connected device's MAC address and adds it to the secure address table.</li><li><b>Restrict:</b> drops traffic from an unauthorized MAC address and increments the violation counter without shutting down the port.</li></ul>
+<p>Port security was checked using <code>show port-security</code>. The HR computer's MAC address was confirmed as learned through sticky MAC learning. Do not assume that every port's MAC address was learned unless the corresponding evidence is available.</p>
+<div class="figure"><strong><img src="port.PNG" width="700"></strong><span>Port security status for protected switch ports</span><span class="tag">Figure 13</span></div>
+<section class="card" id="backup"><h2 class="section">19. Configuration Backup and Recovery</h2><p>Router and switch configurations were saved to their startup configurations. External text copies can also be retained for reference and recovery.</p>
+<h3>Save command</h3><pre>copy running-config startup-config</pre>
+<h3>Display current configuration</h3><pre>show running-config</pre>
+<p>Suggested external backup filenames:</p><ul><li><code>R1_Router_Backup.txt</code></li><li><code>SW1_Switch_Backup.txt</code></li></ul>
+<h3>Recovery procedure</h3><ol><li>Replace or reset the affected device as appropriate.</li><li>Access its command-line interface.</li><li>Restore the saved configuration.</li><li>Verify interfaces, VLANs, routing, DHCP, and security policies.</li><li>Perform connectivity tests and confirm service availability.</li></ol>
+<div class="callout">Router and switch backups have been confirmed as completed. This describes a recovery plan; it does not claim that a full disaster-recovery exercise was performed.</div></section>
+<section class="card" id="maintenance"><h2 class="section">20. Network Maintenance Plan</h2><table><thead><tr><th>Activity</th><th>Suggested frequency</th><th>Purpose</th></tr></thead><tbody><tr><td>Check device and interface status</td><td>Weekly</td><td>Identify connectivity problems</td></tr><tr><td>Review security settings</td><td>Monthly</td><td>Maintain protection</td></tr><tr><td>Review DHCP assignments</td><td>Monthly</td><td>Monitor IP allocation</td></tr><tr><td>Review ACL policies</td><td>Monthly / after changes</td><td>Check traffic rules</td></tr><tr><td>Save configuration backups</td><td>After every change</td><td>Protect device configurations</td></tr><tr><td>Check server services</td><td>Weekly</td><td>Maintain service availability</td></tr><tr><td>Inspect cables and connections</td><td>Monthly</td><td>Identify physical faults</td></tr><tr><td>Update documentation</td><td>After every change</td><td>Keep records accurate</td></tr></tbody></table></section>
+<section class="card" id="risk"><h2 class="section">21. Risk Assessment and Management</h2><table><thead><tr><th>Risk</th><th>Possible impact</th><th>Recommended mitigation</th></tr></thead><tbody><tr><td>Unauthorized device connection</td><td>Unapproved network access</td><td>Switch port security</td></tr><tr><td>Incorrect VLAN assignment</td><td>Connectivity or segmentation issues</td><td>Verify VLAN and port configuration</td></tr><tr><td>IP address conflict</td><td>Unreliable connectivity</td><td>Centralized DHCP management</td></tr><tr><td>Unwanted network traffic</td><td>Exposure of internal resources</td><td>Review and test ACL policies</td></tr><tr><td>Configuration loss</td><td>Network downtime</td><td>Regular backups</td></tr><tr><td>Server failure</td><td>Service interruption</td><td>Recovery planning and server backups</td></tr><tr><td>Cable damage</td><td>Loss of connectivity</td><td>Physical inspection and replacement</td></tr></tbody></table></section>
+<section class="card" id="limitations"><h2 class="section">22. Limitations and Future Improvements</h2>
+<h3>Current limitations</h3><ul><li>The network is simulated in Packet Tracer rather than deployed in a physical office.</li><li>One router and one switch create potential single points of failure.</li><li>The server provides a basic simulated HTTP service, not a complete production hosting environment.</li><li>The configured DNS address does not prove external Internet connectivity.</li><li>ACLs provide basic network filtering, not user-based or file-level permissions.</li><li>Advanced monitoring, centralized logging, and high availability are outside the current scope.</li></ul>
+<h3>Future improvements</h3><ol><li>Add redundant switching and routing equipment.</li><li>Deploy a dedicated firewall.</li><li>Use HTTPS for secure web services.</li><li>Implement centralized authentication and role-based access.</li><li>Introduce network monitoring and centralized logging.</li><li>Maintain a separate backup server.</li><li>Configure a controlled Internet gateway.</li><li>Provide separate wireless guest access.</li><li>Consider redundant power and network links.</li></ol></section>
+<section class="card" id="conclusion"><h2 class="section">23. Conclusion</h2><p>This project demonstrates the design and simulation of a structured network infrastructure for ABC Software House using Cisco Packet Tracer. The network includes five departmental VLANs and a separate server VLAN, DHCP-based client addressing, router-on-a-stick inter-VLAN routing, and a centralized HTTP service.</p><p>Extended ACLs and switch port security were configured to introduce network-level access controls. Connectivity tests were performed, and router and switch configurations were backed up.</p><p>Overall, the project demonstrates practical concepts in network design, configuration, administration, and security management. The design provides a foundation that can be expanded with stronger access controls, redundancy, monitoring, and production-grade services.</p></section>
+</main>
+</div>
+<footer>ABC Software House • System and Network Administration Project • Prepared for academic submission</footer>
+</body>
+</html>
